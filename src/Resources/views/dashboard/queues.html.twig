@@ -4,7 +4,7 @@
     <div class="container">
         <ul>
         {% for queue in queues %}
-            <li><a href="/queues/{{ queue.getKey() }}">{{ queue.getName() }}</a> ({{ queue.getOpenCount() }})</li>
+            <li><a href="/dashboard/queues/{{ queue.getKey() }}">{{ queue.getName() }}</a> ({{ queue.getOpenCount() }})</li>
         {% endfor %}
         </ul>
     </div>

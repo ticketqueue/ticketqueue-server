@@ -16,7 +16,10 @@
         "silex/silex": "2.0.*@dev",
         "twig/twig": "1.16.*@dev",
         "linkorb/database-manager": "dev-master",
+        "doctrine/dbal": "~2.4",
         "rhumsaa/uuid": "~2.8",
+
+        "symfony/security": "~2.3",
 
         "symfony/form": "2.5.2",
         "symfony/validator": "2.5.2",

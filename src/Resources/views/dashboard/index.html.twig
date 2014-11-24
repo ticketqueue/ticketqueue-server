@@ -2,6 +2,8 @@
 
 {% block content %}
     <div class="container">
-        <h1>{{ hello }}</h1>
+        <img src="{{ user.getAvatarUrl() }}" style="float: right;" />
+        <h1>Welcome {{ user.getDisplayName() }}!</h1>
+        <p>User ID: {{ user.getId() }}</p>
     </div>
 {% endblock %}

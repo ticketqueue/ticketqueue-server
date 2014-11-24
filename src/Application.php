@@ -7,6 +7,12 @@ use Symfony\Component\HttpFoundation\Request;
 use TicketQueue\Server\Storage\LinkORBStorage;
 use Symfony\Component\Yaml\Parser as YamlParser;
 use LinkORB\Component\DatabaseManager\DatabaseManager;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use TicketQueue\Server\Security\CustomPasswordEncoder;
+
+//use SuperBase\Component\Security\ApiKeyUserProvider as SuperBaseApiKeyUserProvider;
+use TicketQueue\Server\Security\UserProvider as TicketQueueUserProvider;
+
 
 use Pdo;
 
@@ -137,21 +143,35 @@ class Application extends SilexApplication
     
     private function configureSecurity()
     {
-        // Setup Security
-        
-        /*
         $this->register(new \Silex\Provider\SecurityServiceProvider(), array());
 
+        $manager = new DatabaseManager();
+
+        $accountdbname = 'network';
+        
+        $accountdbal = $manager->getDbalConnection($accountdbname, 'default');
+        //$this['security.encoder.digest'] = new PlaintextPasswordEncoder(true);
+        //$this['security.encoder.digest'] = new CustomPasswordEncoder();
+        //$userprovider = new TicketQueueDUserProvider($accountdbal);
+        $userprovider = new \TicketQueue\Server\Security\JsonFileUserProvider('/share/config/user/');
+
         $this['security.firewalls'] = array(
+            /*
+            'api' => array(
+                'anonymous' => false,
+                'http' => true,
+                'pattern' => '^/api',
+                'users' => new TicketQueueApiKeyUserProvider($this['db'], null)
+            ),
+            */
             'dashboard' => array(
                 'anonymous' => false,
                 'pattern' => '^/dashboard',
                 'form' => array('login_path' => '/login', 'check_path' => '/dashboard/login_check'),
                 'logout' => array('logout_path' => '/dashboard/logout'),
-                'users' => new \ApiRegistry/UserProvider($this['db'], null),
+                'users' => $userprovider,
             )
         );
-        */
     }
     
     private function configureListeners()

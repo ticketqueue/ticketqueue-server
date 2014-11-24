@@ -11,23 +11,33 @@ $app = new Application();
 
 // General
 $app->get(
+    '/login',
+    'TicketQueue\Server\Controller\DashboardController::loginAction'
+);
+
+$app->get(
     '/',
+    'TicketQueue\Server\Controller\DashboardController::rootAction'
+);
+// General
+$app->get(
+    '/dashboard',
     'TicketQueue\Server\Controller\DashboardController::indexAction'
 );
 $app->get(
-    '/queues',
+    '/dashboard/queues',
     'TicketQueue\Server\Controller\DashboardController::queuesAction'
 );
 $app->get(
-    '/queues/{queuekey}',
+    '/dashboard/queues/{queuekey}',
     'TicketQueue\Server\Controller\DashboardController::queuesViewAction'
 );
 $app->get(
-    '/tickets/{ticketkey}',
+    '/dashboard/tickets/{ticketkey}',
     'TicketQueue\Server\Controller\DashboardController::ticketsViewAction'
 );
 $app->post(
-    '/tickets/{ticketkey}/reply',
+    '/dashboard/tickets/{ticketkey}/reply',
     'TicketQueue\Server\Controller\DashboardController::ticketsReplyAction'
 );
 

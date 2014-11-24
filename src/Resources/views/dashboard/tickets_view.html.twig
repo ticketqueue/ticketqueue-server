@@ -3,8 +3,8 @@
 {% block breadcrumbs %}
     <ol class="breadcrumb">
       <li><a href="/">Home</a></li>
-      <li><a href="/queues">Queues</a></li>
-      <li><a href="/queues/{{ queue.getKey() }}">{{ queue.getName() }}</a></li>
+      <li><a href="/dashboard/queues">Queues</a></li>
+      <li><a href="/dashboard/queues/{{ queue.getKey() }}">{{ queue.getName() }}</a></li>
       <li class="active">#{{ ticket.getReference() }}: {{ ticket.getSubject() }}</li>
     </ol>
 {% endblock %}
@@ -35,7 +35,7 @@
         <h3>Reply</h3>
         <div class="comments panel panel-default">
             <div class="panel-body">
-                <form action="/tickets/{{ ticket.getKey() }}/reply" method="post">
+                <form action="/dashboard/tickets/{{ ticket.getKey() }}/reply" method="post">
                     <div class="row">
                         <div class="col-md-2" style="text-align: center;">
                             <img class="avatar" src="{{ userprofile.getAvatarUrl() }}" /><br />

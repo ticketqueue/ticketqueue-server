@@ -6,7 +6,7 @@
         
         <ul>
         {% for ticket in tickets %}
-            <li><a href="/tickets/{{ ticket.getKey() }}">{{ ticket.getSubject() }}</a> ({{ ticket.getReplyCount() }})</li>
+            <li><a href="/dashboard/tickets/{{ ticket.getKey() }}">{{ ticket.getSubject() }}</a> ({{ ticket.getReplyCount() }})</li>
         {% endfor %}
         </ul>
     </div>

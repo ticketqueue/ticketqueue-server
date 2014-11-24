@@ -11,13 +11,32 @@ use DateTime;
 
 class DashboardController
 {
+    public function rootAction(Application $app, Request $request)
+    {
+        return new RedirectResponse('/dashboard');
+    }
+    
     public function indexAction(Application $app, Request $request)
     {
-        $data = array('hello' => 'world');
+        $token = $app['security']->getToken();
+
+        $data = array(
+            'user' => $token->getUser()
+        );
         $html =  $app['twig']->render('@Dashboard/index.html.twig', $data);
         return $html;
     }
     
+    public function loginAction(Application $app, Request $request)
+    {
+        $data = array(
+            'error' => $app['security.last_error']($request)
+        );
+        $html =  $app['twig']->render('@Dashboard/login.html.twig', $data);
+        return $html;
+    }
+
+
     public function queuesAction(Application $app, Request $request)
     {
         $storage = $app['ticketqueue.storage'];
@@ -41,13 +60,19 @@ class DashboardController
     {
         $storage = $app['ticketqueue.storage'];
 
+
         $ticket = $storage->getTicketByKey($ticketkey);
         $queue = $storage->getQueueByKey($ticket->getQueueKey());
         $comments = $storage->getCommentsByTicketKey($ticketkey);
+
+
+        $token = $app['security']->getToken();
+
         $userprofile = new Profile();
-        $userprofile->setDisplayName('Agent 1');
-        $userprofile->setEmail('agent1@example.web');
-        $userprofile->setAvatarUrl('agent1@example.web');
+        $userprofile->setKey($token->getUser()->getId());
+        $userprofile->setDisplayName($token->getUser()->getDisplayName());
+        $userprofile->setEmail($token->getUser()->getEmail());
+        $userprofile->setAvatarUrl($token->getUser()->getAvatarUrl());
         
         $data = array(
             'queue' => $queue,
@@ -66,12 +91,14 @@ class DashboardController
         $ticket = $storage->getTicketByKey($ticketkey);
         $queue = $storage->getQueueByKey($ticket->getQueueKey());
         $comments = $storage->getCommentsByTicketKey($ticketkey);
-        
+
+        $token = $app['security']->getToken();
+
         $userprofile = new Profile();
-        $userprofile->setKey('922b6c18-91bf-102b-a0bc-0030482ae110');
-        $userprofile->setDisplayName('Agent 1');
-        $userprofile->setEmail('agent1@example.web');
-        $userprofile->setAvatarUrl('agent1@example.web');
+        $userprofile->setKey($token->getUser()->getId());
+        $userprofile->setDisplayName($token->getUser()->getDisplayName());
+        $userprofile->setEmail($token->getUser()->getEmail());
+        $userprofile->setAvatarUrl($token->getUser()->getAvatarUrl());
         
         $poster = $userprofile;
         $comment = new Comment();
@@ -84,6 +111,6 @@ class DashboardController
         
         $storage->addCommentToTicket($ticket, $comment);
         $storage->setTicketStatus($ticket, 'CLOSED');
-        return new RedirectResponse('/queues/' . $ticket->getQueueKey());
+        return new RedirectResponse('/dashboard/queues/' . $ticket->getQueueKey());
     }
 }
