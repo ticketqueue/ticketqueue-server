@@ -1,0 +1,36 @@
+{
+    "name": "ticketqueu/ticketqueue-server",
+    "description": "Ticket Queue Server",
+    "homepage": "https://github.com/ticketqueue/ticketqueue-server",
+    "keywords": ["php", "ticket", "support", "helpdesk", "api"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Joost Faassen",
+            "email": "j.faassen@linkorb.com",
+            "role": "Development"
+        }
+    ],
+    "require": {
+        "symfony/console": "~2.4",
+        "silex/silex": "2.0.*@dev",
+        "twig/twig": "1.16.*@dev",
+        "linkorb/database-manager": "dev-master",
+
+        "symfony/form": "2.5.2",
+        "symfony/validator": "2.5.2",
+        "symfony/config": "~2.4",
+        "symfony/translation": "~2.4",
+        "symfony/security-csrf": "~2.4",
+        "symfony/yaml": "~2.5",
+        
+        "symfony/twig-bridge": "~2.4",
+        "swiftmailer/swiftmailer": "5.2.*@dev",
+        "thomaswelton/gravatarlib": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "TicketQueue\\Server\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,5 @@
+storage.type: linkorb
+storage.username: username
+storage.password: password
+storage.hostname: 127.0.0.1
+storage.dbname: dbname

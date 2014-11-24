@@ -1,0 +1,33 @@
+{% extends "@App/layout.html.twig" %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li><a href="/queues">Queues</a></li>
+      <li><a href="/queues/{{ queue.getKey() }}">{{ queue.getName() }}</a></li>
+      <li class="active">#{{ ticket.getReference() }}: {{ ticket.getSubject() }}</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>#{{ticket.getReference()}}: {{ ticket.getSubject() }}</h1>
+        
+        {% for comment in comments %}
+            <div class="comments panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2" style="text-align: center;">
+                            <img class="avatar" src="{{ comment.getPoster().getAvatarUrl() }}" /><br />
+
+                            <b>{{ comment.getPoster().getDisplayName() }}</b><br />
+                            <small>{{ comment.getPoster().getEmail() }}</small>
+                        </div>
+                        <div class="col-md-10">
+                            {{ comment.getMessageHtml()|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+{% endblock %}
