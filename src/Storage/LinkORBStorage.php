@@ -24,7 +24,7 @@ class LinkORBStorage implements StorageInterface
     public function getQueues()
     {
         $queues = array();
-        $sql = "SELECT id, r_uuid, name FROM ticket_queue ORDER BY name";
+        $sql = "SELECT id, r_uuid, name FROM ticket_queue WHERE isnull(r_d_s) AND isnull(archive) ORDER BY name";
         $res = $this->pdo->query($sql);
         foreach ($res as $row) {
             $queue = new Queue();
@@ -162,5 +162,25 @@ class LinkORBStorage implements StorageInterface
         }
         return $comments;
 
+    }
+    
+    public function addCommentToTicket($ticket, $comment)
+    {
+        $sql = "INSERT INTO comment (r_uuid, r_c_u, r_c_s, message, tablename, recorduuid) VALUES(" .
+             $this->pdo->quote($comment->getKey()) . ", " .
+             $this->pdo->quote($comment->getPoster()->getKey()) . ", " .
+             $this->pdo->quote($comment->getDateTime()->getTimestamp()) . ", " .
+             $this->pdo->quote($comment->getMessage()) . ", " .
+             $this->pdo->quote('ticket_entry') . ", " .
+             $this->pdo->quote($ticket->getKey())  .
+             ");";
+        $res = $this->pdo->query($sql);
+    }
+
+    public function setTicketStatus($ticket, $status)
+    {
+        $sql = "UPDATE ticket_entry SET status=" . $this->pdo->quote($status) . " WHERE r_uuid= " .
+             $this->pdo->quote($ticket->getKey()) . ";";
+        $res = $this->pdo->query($sql);
     }
 }

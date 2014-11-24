@@ -30,4 +30,30 @@
                 </div>
             </div>
         {% endfor %}
+
+
+        <h3>Reply</h3>
+        <div class="comments panel panel-default">
+            <div class="panel-body">
+                <form action="/tickets/{{ ticket.getKey() }}/reply" method="post">
+                    <div class="row">
+                        <div class="col-md-2" style="text-align: center;">
+                            <img class="avatar" src="{{ userprofile.getAvatarUrl() }}" /><br />
+
+                            <b>{{ userprofile.getDisplayName() }}</b><br />
+                            <small>{{ userprofile.getEmail() }}</small>
+                        </div>
+                        <div class="col-md-10">
+                            <textarea name="reply_message" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="buttonbox">
+                        <button class="btn btn-primary">Reply</button>
+                    </div>
+                <form>
+            </div>
+        </div>
+
+
 {% endblock %}

@@ -16,6 +16,18 @@ class Comment
         return $this->message;
     }
     
+    private $datetime;
+
+    public function getDatetime()
+    {
+        return $this->datetime;
+    }
+    
+    public function setDatetime($d)
+    {
+        return $this->datetime = $d;
+    }
+    
     public function getMessageHtml()
     {
         $res = $this->message;

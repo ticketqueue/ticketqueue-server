@@ -26,5 +26,9 @@ $app->get(
     '/tickets/{ticketkey}',
     'TicketQueue\Server\Controller\DashboardController::ticketsViewAction'
 );
+$app->post(
+    '/tickets/{ticketkey}/reply',
+    'TicketQueue\Server\Controller\DashboardController::ticketsReplyAction'
+);
 
 return $app;
